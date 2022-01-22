@@ -17,33 +17,59 @@ def generate_malaysia_report():
     data_total_deaths = data["item24"]
     data_daily_deaths = data["item25"]
 
-    print(
-        data_total_cases["name1"],
-        data_total_cases["x_axis"][-1],
-        data_total_cases["data1"][-1],
-    )
     for n in range(7):
         print(
             data_daily_cases["name1"],
             data_daily_cases["x_axis"][-(n + 1)],
             data_daily_cases["data1"][-(n + 1)],
         )
-    print(
-        data_active_cases["name1"],
-        data_active_cases["x_axis"][-1],
-        data_active_cases["data1"][-1],
-    )
-    print(
-        data_total_deaths["name1"],
-        data_total_deaths["x_axis"][-1],
-        data_total_deaths["data1"][-1],
-    )
+
     for n in range(7):
         print(
             data_daily_deaths["name1"],
             data_daily_deaths["x_axis"][-(n + 1)],
             data_daily_deaths["data1"][-(n + 1)],
         )
+      
+    temp_date = []
+    temp_data = []
+    temp_daily_cases_date = []
+    temp_daily_cases = []
+    temp_daily_deaths_date = []
+    temp_daily_deaths = []
+    for n in range(7):
+        temp_date.append(str(data_active_cases["x_axis"][-1-n]))
+        temp_data.append(str(data_active_cases["data1"][-1-n]))
+        temp_daily_cases_date.append(str(data_daily_cases["x_axis"][-1-n]))
+        temp_daily_cases.append(str(data_daily_cases["data1"][-1-n]))
+        temp_daily_deaths_date.append(str(data_daily_deaths["x_axis"][-1-n]))
+        temp_daily_deaths.append(str(data_daily_deaths["data1"][-1-n]))
+
+
+    return(
+        '{"malaysia":{"total_cases": {"date":"'
+        + data_total_cases["x_axis"][-1]
+        + '","cases":'
+        + str(data_total_cases["data1"][-1])
+        + '},"total_deaths": {"date":"'
+        + data_total_deaths["x_axis"][-1]
+        + '","cases":'
+        + str(data_total_deaths["data1"][-1])
+        + '},"active_cases":{"date":'
+        + str(temp_date)
+        + ',"cases":'
+        + str(temp_data)
+        + '},"daily_cases":{"date":'
+        + str(temp_daily_cases_date)
+        + ',"cases":'
+        + str(temp_daily_cases)
+        + '},"daily_deaths":{"date":'
+        + str(temp_daily_deaths_date)
+        + ',"cases":'
+        + str(temp_daily_deaths)
+        + " }}}"
+    )
+  
 
 
 def generate_world_report():
@@ -99,6 +125,9 @@ with open("result.json", "w") as f:
 
 def main():
     world = generate_world_report()
+    malaysia = generate_malaysia_report()
+    print(world)
+    print(malaysia)
 
 
 main()
