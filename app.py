@@ -3,7 +3,6 @@ import os
 import matplotlib.pyplot as plt
 from numpy import append
 import seaborn as sns
-import datetime
 
 
 def generate_malaysia_report():
@@ -16,7 +15,8 @@ def generate_malaysia_report():
     data_active_cases = data["item23"]
     data_total_deaths = data["item24"]
     data_daily_deaths = data["item25"]
-  
+
+      
     temp_date = []
     temp_data = []
     temp_daily_cases_date = []
@@ -111,8 +111,9 @@ with open("result.json", "w") as f:
 def main():
     world = generate_world_report()
     malaysia = generate_malaysia_report()
-    print(world)
-    print(malaysia)
+    with open("result.json", "w") as f:
+      f.write(str(world[:-1] + "," + malaysia[1:] ).replace("'", '"'))  
+
 
 
 main()
