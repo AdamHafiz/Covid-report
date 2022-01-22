@@ -38,7 +38,7 @@ def generate_world_report():
 
   for n in range(7):
     print(data_active_cases["name1"], data_active_cases["x_axis"][-1], data_active_cases["data1"][-1])
-    
+
   print(data_total_deaths["name1"], data_total_deaths["x_axis"][-1], data_total_deaths["data1"][-1])
 
   for n in range(7):
@@ -48,7 +48,7 @@ def generate_world_report():
 generate_malaysia_report()
 generate_world_report()
 
-# yag = yagmail.SMTP('violettulip00@gmail.com', 'sdssdsdsdsds')
+# yag = yagmail.SMTP('adamhafizswitch@gmail.com', 'iixnapwiuecrmyfy')
 # contents = ['This is the body, and here is just text http://somedomain/image.png',
 #             'You can find an audio file attached.', '/local/path/song.mp3']
 # yag.send('alifzulkifeli@gmail.com', 'subject', contents)
