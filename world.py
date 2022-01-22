@@ -16,7 +16,9 @@ def cleaning(data):
     removed_script_tag = temp_y[: temp_y.find("responsive: {") - 11]
 
     name1 = removed_script_tag[
-        removed_script_tag.find("name") + len("name"): removed_script_tag.find("',")+1 
+        removed_script_tag.find("name")
+        + len("name") : removed_script_tag.find("',")
+        + 1
     ]
     name1 = '"name1"' + name1.replace("'", '"')
 
@@ -37,37 +39,37 @@ def cleaning(data):
         + len("name") : removed_script_tag_second.find(",")
     ]
 
-
-    
-
     if len(name2) > 0:
 
-        name2 = '"name2"' + name2.replace("'", '"') 
+        name2 = '"name2"' + name2.replace("'", '"')
         data2 = removed_script_tag_second[
             removed_script_tag_second.find("data: ")
             + len("data") : removed_script_tag_second.find("]")
             + 1
         ]
         data2 = '"data2"' + data2
-        return "{" + x_axis + "," + name1 + "," + data1 + "," + name2 + "," + data2 + "}"
-        
+        return (
+            "{" + x_axis + "," + name1 + "," + data1 + "," + name2 + "," + data2 + "}"
+        )
+
     # return "{" +  x_axis + "," + name1 + "," + data1 +  "}"
     return "{" + x_axis + "," + name1 + "," + data1 + "}"
 
-URL = "https://www.worldometers.info/coronavirus/country/malaysia/"
+
+URL = "https://www.worldometers.info/coronavirus/"
 page = requests.get(URL)
 
 soup = BeautifulSoup(page.content, "html.parser")
 result = soup.find_all("script")
 
-wanted_number=[21,22,23,24,25]
+wanted_number = [19, 20, 21, 22]
 data_string = ""
 
 for n in wanted_number:
-    cleaned_data =  '"item'+ str(n) + '":' + cleaning(str(result[n])) 
+    cleaned_data = '"item' + str(n) + '":' + cleaning(str(result[n]))
     data_string = data_string + "," + cleaned_data
 
 # x_axis_string = "{" + x_axis_string[:-2] + "]}"
 
-with open("malaysia.json", "w") as f:
-    f.write(str("{" + data_string[1:] +"}"))
+with open("world.json", "w") as f:
+    f.write(str("{" + data_string[1:] + "}"))

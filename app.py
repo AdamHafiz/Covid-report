@@ -1,73 +1,53 @@
-import requests
-from bs4 import BeautifulSoup
+import json
+import yagmail
 
 
-def cleaning(data):
-    x_axis = ""
-    name1 = ""
-    data1 = ""
-    name2 = ""
-    data2 = ""
 
-    temp_x = data[data.find("categories: ") + len("categories: ") :]
-    x_axis = '"x_axis":' + temp_x[: temp_x.find('"]') + 2]
+def generate_malaysia_report():
+  with open('malaysia.json', "r") as file:
+    json_data = file.read()
 
-    temp_y = data[data.find("series: ") + len("series: ") :]
-    removed_script_tag = temp_y[: temp_y.find("responsive: {") - 11]
-
-    name1 = removed_script_tag[
-        removed_script_tag.find("name") + len("name") : removed_script_tag.find(",")
-    ]
-    name1 = '"name1"' + name1.replace("'", '"')
-
-    data1 = removed_script_tag[
-        removed_script_tag.find("data: ")
-        + len("data") : removed_script_tag.find("]")
-        + 1
-    ]
-    data1 = '"data1"' + data1
-
-    removed_script_tag_second = removed_script_tag[removed_script_tag.find("]") :]
-    removed_script_tag_second = removed_script_tag_second[
-        removed_script_tag_second.find("name") :
-    ]
-
-    name2 = removed_script_tag_second[
-        removed_script_tag_second.find("name")
-        + len("name") : removed_script_tag_second.find(",")
-    ]
+  data = json.loads(json_data)
+  data_total_cases = data["item21"]
+  data_daily_cases = data["item22"]
+  data_active_cases = data["item23"]
+  data_total_deaths = data["item24"]
+  data_daily_deaths = data["item25"]
 
 
-    
+  print(data_total_cases["name1"], data_total_cases["x_axis"][-1], data_total_cases["data1"][-1])
+  for n in range(7):
+    print(data_daily_cases["name1"], data_daily_cases["x_axis"][-(n+1)], data_daily_cases["data1"][-(n+1)])
+  print(data_active_cases["name1"], data_active_cases["x_axis"][-1], data_active_cases["data1"][-1])
+  print(data_total_deaths["name1"], data_total_deaths["x_axis"][-1], data_total_deaths["data1"][-1])
+  for n in range(7):
+    print(data_daily_deaths["name1"], data_daily_deaths["x_axis"][-(n+1)], data_daily_deaths["data1"][-(n+1)])
 
-    if len(name2) > 0:
 
-        name2 = '"name2"' + name2.replace("'", '"') 
-        data2 = removed_script_tag_second[
-            removed_script_tag_second.find("data: ")
-            + len("data") : removed_script_tag_second.find("]")
-            + 1
-        ]
-        data2 = '"data2"' + data2
-        return "{" + x_axis + "," + name1 + "," + data1 + "," + name2 + "," + data2 + "}"
-        
-    # return "{" +  x_axis + "," + name1 + "," + data1 +  "}"
-    return "{" + x_axis + "," + name1 + "," + data1 + "}"
+def generate_world_report():
+  with open('world.json', "r") as file:
+    json_data = file.read()
 
-URL = "https://www.worldometers.info/coronavirus/"
-page = requests.get(URL)
+  data = json.loads(json_data)
+  data_total_cases = data["item21"]
+  data_daily_cases = data["item22"]
+  data_active_cases = data["item23"]
+  data_total_deaths = data["item24"]
+  data_daily_deaths = data["item25"]
 
-soup = BeautifulSoup(page.content, "html.parser")
-result = soup.find_all("script")
 
-wanted_number = [19, 20, 21, 22]
-data_string = ""
+  print(data_total_cases["name1"], data_total_cases["x_axis"][-1], data_total_cases["data1"][-1])
+  for n in range(7):
+    print(data_daily_cases["name1"], data_daily_cases["x_axis"][-(n+1)], data_daily_cases["data1"][-(n+1)])
+  print(data_active_cases["name1"], data_active_cases["x_axis"][-1], data_active_cases["data1"][-1])
+  print(data_total_deaths["name1"], data_total_deaths["x_axis"][-1], data_total_deaths["data1"][-1])
+  for n in range(7):
+    print(data_daily_deaths["name1"], data_daily_deaths["x_axis"][-(n+1)], data_daily_deaths["data1"][-(n+1)])
 
-for n in wanted_number:
-    cleaned_data =  '"item'+ str(n) + '":' + cleaning(str(result[n])) 
-    data_string = data_string + "," + cleaned_data
 
-# x_axis_string = "{" + x_axis_string[:-2] + "]}"
+generate_world_report()
 
-with open("res.json", "w") as f:
-    f.write(str("{" + data_string[1:] +"}"))
+# yag = yagmail.SMTP('violettulip00@gmail.com', 'hlqlooasxiiswesp')
+# contents = ['This is the body, and here is just text http://somedomain/image.png',
+#             'You can find an audio file attached.', '/local/path/song.mp3']
+# yag.send('alifzulkifeli@gmail.com', 'subject', contents)
