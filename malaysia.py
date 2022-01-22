@@ -16,8 +16,8 @@ def cleaning(data):
     temp_y = data[data.find("series: ") + len("series: ") :]
     removed_script_tag = temp_y[: temp_y.find("responsive: {") - 11]
 
-    if len(name2) > 0:
-        name1 = removed_script_tag[
+
+    name1 = removed_script_tag[
         removed_script_tag.find("name") + len("name"): removed_script_tag.find("',")+1 
     ]
     name1 = '"name1"' + name1.replace("'", '"')
@@ -56,6 +56,7 @@ def cleaning(data):
         
     # return "{" +  x_axis + "," + name1 + "," + data1 +  "}"
     return "{" + x_axis + "," + name1 + "," + data1 + "}"
+
 
 URL = "https://www.worldometers.info/coronavirus/country/malaysia/"
 page = requests.get(URL)

@@ -1,8 +1,6 @@
 import json
 import yagmail
 
-with open('malaysia.json', 'r') as myfile:
-    data=myfile.read()
 
 
 def generate_malaysia_report():
@@ -49,7 +47,7 @@ def generate_world_report():
 
 generate_malaysia_report()
 
-# yag = yagmail.SMTP('violettulip00@gmail.com', 'hlqlooasxiiswesp')
+# yag = yagmail.SMTP('violettulip00@gmail.com', 'sdssdsdsdsds')
 # contents = ['This is the body, and here is just text http://somedomain/image.png',
 #             'You can find an audio file attached.', '/local/path/song.mp3']
 # yag.send('alifzulkifeli@gmail.com', 'subject', contents)
