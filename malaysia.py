@@ -10,7 +10,7 @@ def cleaning_yaxis(data):
     removed_script_tag = temp[:temp.find('responsive: {')-11]
 
 
-    print(removed_script_tag[removed_script_tag.find('name'):removed_script_tag.find("',")])
+    print(removed_script_tag[removed_script_tag.find('name'):removed_script_tag.find(",")])
     print(removed_script_tag[removed_script_tag.find('data: '):removed_script_tag.find("]")+1])
 
 
@@ -18,7 +18,7 @@ def cleaning_yaxis(data):
     removed_script_tag_second = removed_script_tag_second[removed_script_tag_second.find("name"):]
 
 
-    print(removed_script_tag_second[removed_script_tag_second.find('name'):removed_script_tag_second.find("',")])
+    print(removed_script_tag_second[removed_script_tag_second.find('name'):removed_script_tag_second.find(",")])
     print(removed_script_tag_second[removed_script_tag_second.find('data: '):removed_script_tag_second.find(']')+1])
 
 URL = "https://www.worldometers.info/coronavirus/country/malaysia/"
