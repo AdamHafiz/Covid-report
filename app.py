@@ -16,21 +16,7 @@ def generate_malaysia_report():
     data_active_cases = data["item23"]
     data_total_deaths = data["item24"]
     data_daily_deaths = data["item25"]
-
-    for n in range(7):
-        print(
-            data_daily_cases["name1"],
-            data_daily_cases["x_axis"][-(n + 1)],
-            data_daily_cases["data1"][-(n + 1)],
-        )
-
-    for n in range(7):
-        print(
-            data_daily_deaths["name1"],
-            data_daily_deaths["x_axis"][-(n + 1)],
-            data_daily_deaths["data1"][-(n + 1)],
-        )
-      
+  
     temp_date = []
     temp_data = []
     temp_daily_cases_date = []
@@ -71,7 +57,6 @@ def generate_malaysia_report():
     )
   
 
-
 def generate_world_report():
     with open("world.json", "r") as file:
         json_data = file.read()
@@ -82,8 +67,8 @@ def generate_world_report():
     data_total_cases = data["item21"]
     data_total_deaths = data["item22"]
 
-    # generate_graph(data_deathrate["x_axis"],data_deathrate["data2"],"recoveryrate" )
-    # generate_graph(data_deathrate["x_axis"],data_deathrate["data1"],"deathrate" )
+    generate_graph(data_deathrate["x_axis"],data_deathrate["data2"],"recoveryrate" )
+    generate_graph(data_deathrate["x_axis"],data_deathrate["data1"],"deathrate" )
 
     temp_date = []
     temp_data = []
