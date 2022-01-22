@@ -11,51 +11,43 @@ world = data["world"]
 malaysia = data["malaysia"]
 
 
-yag = yagmail.SMTP('adamhafizswitch@gmail.com', 'iixnapwiuecrmyfy')
-contents = [f"""<body style="line-height: 0.5;">
-  <h2>Covid Report for {date.today()}</h2>
-  <h3>Malaysia</h3>
-  <table>
-  <p>Total cases: {malaysia["total_cases"]["cases"]}</p>
+yag = yagmail.SMTP("adamhafizswitch@gmail.com", "iixnapwiuecrmyfy")
+contents = [
+    f"""
+    Covid Report for {date.today()}
+        
+    Malaysia: 
+    Total cases: {malaysia["total_cases"]["cases"]}
+    Total loss: {malaysia["total_deaths"]["cases"]}
+  
+    Active cases(current, new, loss):
+    {malaysia["active_cases"]["date"][0]}: {malaysia["active_cases"]["cases"][0]}, +{malaysia["daily_cases"]["cases"][0]}, -{malaysia["daily_deaths"]["cases"][0]}, 
+    {malaysia["active_cases"]["date"][1]}: {malaysia["active_cases"]["cases"][1]}, +{malaysia["daily_cases"]["cases"][1]}, -{malaysia["daily_deaths"]["cases"][1]}, 
+    {malaysia["active_cases"]["date"][2]}: {malaysia["active_cases"]["cases"][2]}, +{malaysia["daily_cases"]["cases"][2]}, -{malaysia["daily_deaths"]["cases"][2]}, 
+    {malaysia["active_cases"]["date"][3]}: {malaysia["active_cases"]["cases"][3]}, +{malaysia["daily_cases"]["cases"][3]}, -{malaysia["daily_deaths"]["cases"][3]}, 
+    {malaysia["active_cases"]["date"][4]}: {malaysia["active_cases"]["cases"][4]}, +{malaysia["daily_cases"]["cases"][4]}, -{malaysia["daily_deaths"]["cases"][4]}, 
+    {malaysia["active_cases"]["date"][5]}: {malaysia["active_cases"]["cases"][5]}, +{malaysia["daily_cases"]["cases"][5]}, -{malaysia["daily_deaths"]["cases"][5]}, 
+    {malaysia["active_cases"]["date"][6]}: {malaysia["active_cases"]["cases"][6]}, +{malaysia["daily_cases"]["cases"][6]}, -{malaysia["daily_deaths"]["cases"][6]}
 
-  <p>Total loss: {malaysia["total_deaths"]["cases"]}</p>
-  <th> Active cases:</th>
-    <tr>
-      <td>{malaysia["active_cases"]["date"][0]}</td>
-      <td>{malaysia["active_cases"]["cases"][0]}</td>
-    </tr>
-    <tr>
-      <td>{malaysia["active_cases"]["date"][1]}</td>
-      <td>{malaysia["active_cases"]["cases"][1]}</td>
-    </tr>
-    <tr>
-      <td>{malaysia["active_cases"]["date"][2]}</td>
-      <td>{malaysia["active_cases"]["cases"][2]}</td>
-    </tr>
-    <tr>
-      <td>{malaysia["active_cases"]["date"][3]}</td>
-      <td>{malaysia["active_cases"]["cases"][3]}</td>
-    </tr>
-    <tr>
-      <td>{malaysia["active_cases"]["date"][4]}</td>
-      <td>{malaysia["active_cases"]["cases"][4]}</td>
-    </tr>
-    <tr>
-      <td>{malaysia["active_cases"]["date"][5]}</td>
-      <td>{malaysia["active_cases"]["cases"][5]}</td>
-    </tr>
-    <tr>
-      <td>{malaysia["active_cases"]["date"][6]}</td>
-      <td>{malaysia["active_cases"]["cases"][6]}</td>
-    </tr>
-  </table>
+		
 
-  <h3>World</h3>
-  <p>Total cases: <span>{world["total_cases"]["cases"]}</span></p>
-  <p>Total loss: <span>{world["total_deaths"]["cases"]}</span></p>
+    World:
+    Total cases: {world["total_cases"]["cases"]}
+    Total loss: {world["total_deaths"]["cases"]}
 
-</body>"""]
+    Active cases:
+    {world["active_cases"]["date"][0]}: {world["active_cases"]["cases"][0]}
+    {world["active_cases"]["date"][1]}: {world["active_cases"]["cases"][1]}
+    {world["active_cases"]["date"][2]}: {world["active_cases"]["cases"][2]}
+    {world["active_cases"]["date"][3]}: {world["active_cases"]["cases"][3]}
+    {world["active_cases"]["date"][4]}: {world["active_cases"]["cases"][4]}
+    {world["active_cases"]["date"][5]}: {world["active_cases"]["cases"][5]}
+    {world["active_cases"]["date"][6]}: {world["active_cases"]["cases"][6]}
+
+"""
+]
 
 
-yag.send('alifzulkifeli@gmail.com', 'subject', contents)
-yag.send('adamhafizswitch@gmail.com', 'subject', contents)
+yag.send("alifzulkifeli@gmail.com", "Covid-19 Daily Report", contents, attachments=['recoveryrate.png', 'deathrate.png'])
+yag.send("adamhafizswitch@gmail.com", "Covid-19 Daily Report", contents,attachments=['recoveryrate.png', 'deathrate.png'])
+# yag.send('izzat.ibtisyam@gmail.com', 'subject', contents)

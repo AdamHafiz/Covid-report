@@ -68,8 +68,8 @@ def generate_world_report():
     data_total_cases = data["item21"]
     data_total_deaths = data["item22"]
 
-    # generate_graph(data_deathrate["x_axis"],data_deathrate["data2"],"recoveryrate" )
-    # generate_graph(data_deathrate["x_axis"],data_deathrate["data1"],"deathrate" )
+    generate_graph(data_deathrate["x_axis"],data_deathrate["data2"],"recoveryrate" )
+    generate_graph(data_deathrate["x_axis"],data_deathrate["data1"],"deathrate" )
 
     temp_date = []
     temp_data = []
