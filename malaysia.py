@@ -1,34 +1,73 @@
 import requests
 from bs4 import BeautifulSoup
 
-def cleaning_xaxis(data):
-    temp = (data[data.find("categories: ") + len("categories: "):])
-    print(temp[:temp.find('"]')+2])
 
-def cleaning_yaxis(data):
-    temp = data[data.find("series: ") + len("series: "):]
-    removed_script_tag = temp[:temp.find('responsive: {')-11]
+def cleaning(data):
+    x_axis = ""
+    name1 = ""
+    data1 = ""
+    name2 = ""
+    data2 = ""
+
+    temp_x = data[data.find("categories: ") + len("categories: ") :]
+    x_axis = '"x_axis":' + temp_x[: temp_x.find('"]') + 2]
+
+    temp_y = data[data.find("series: ") + len("series: ") :]
+    removed_script_tag = temp_y[: temp_y.find("responsive: {") - 11]
+
+    name1 = removed_script_tag[
+        removed_script_tag.find("name") + len("name") : removed_script_tag.find("',")+1
+    ]
+    name1 = '"name1"' + name1.replace("'", '"')
+
+    data1 = removed_script_tag[
+        removed_script_tag.find("data: ")
+        + len("data") : removed_script_tag.find("]")
+        + 1
+    ]
+    data1 = '"data1"' + data1
+
+    removed_script_tag_second = removed_script_tag[removed_script_tag.find("]") :]
+    removed_script_tag_second = removed_script_tag_second[
+        removed_script_tag_second.find("name") :
+    ]
+
+    name2 = removed_script_tag_second[
+        removed_script_tag_second.find("name")
+        + len("name") : removed_script_tag_second.find(",")
+    ]
 
 
-    print(removed_script_tag[removed_script_tag.find('name'):removed_script_tag.find(",")])
-    print(removed_script_tag[removed_script_tag.find('data: '):removed_script_tag.find("]")+1])
+    
 
+    if len(name2) > 0:
 
-    removed_script_tag_second = removed_script_tag[removed_script_tag.find("]"):]
-    removed_script_tag_second = removed_script_tag_second[removed_script_tag_second.find("name"):]
-
-
-    print(removed_script_tag_second[removed_script_tag_second.find('name'):removed_script_tag_second.find(",")])
-    print(removed_script_tag_second[removed_script_tag_second.find('data: '):removed_script_tag_second.find(']')+1])
+        name2 = '"name2"' + name2.replace("'", '"') 
+        data2 = removed_script_tag_second[
+            removed_script_tag_second.find("data: ")
+            + len("data") : removed_script_tag_second.find("]")
+            + 1
+        ]
+        data2 = '"data2"' + data2
+        return "{" + x_axis + "," + name1 + "," + data1 + "," + name2 + "," + data2 + "}"
+        
+    # return "{" +  x_axis + "," + name1 + "," + data1 +  "}"
+    return "{" + x_axis + "," + name1 + "," + data1 + "}"
 
 URL = "https://www.worldometers.info/coronavirus/country/malaysia/"
 page = requests.get(URL)
 
 soup = BeautifulSoup(page.content, "html.parser")
-result = soup.find_all('script')
+result = soup.find_all("script")
 
-wanted_number=[21,22,23,24,25]
+wanted_number = [21,22,23,24,25]
+data_string = ""
 
 for n in wanted_number:
-    cleaning_xaxis(str(result[n]))
-    cleaning_yaxis(str(result[n]))
+    cleaned_data =  '"item'+ str(n) + '":' + cleaning(str(result[n])) 
+    data_string = data_string + "," + cleaned_data
+
+# x_axis_string = "{" + x_axis_string[:-2] + "]}"
+
+with open("malaysia.json", "w") as f:
+    f.write(str("{" + data_string[1:] +"}"))

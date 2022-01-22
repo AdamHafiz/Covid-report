@@ -16,7 +16,7 @@ def cleaning(data):
     removed_script_tag = temp_y[: temp_y.find("responsive: {") - 11]
 
     name1 = removed_script_tag[
-        removed_script_tag.find("name") + len("name") : removed_script_tag.find("',")+1
+        removed_script_tag.find("name") + len("name") : removed_script_tag.find(",")
     ]
     name1 = '"name1"' + name1.replace("'", '"')
 
@@ -54,13 +54,13 @@ def cleaning(data):
     # return "{" +  x_axis + "," + name1 + "," + data1 +  "}"
     return "{" + x_axis + "," + name1 + "," + data1 + "}"
 
-URL = "https://www.worldometers.info/coronavirus/country/malaysia/"
+URL = "https://www.worldometers.info/coronavirus/"
 page = requests.get(URL)
 
 soup = BeautifulSoup(page.content, "html.parser")
 result = soup.find_all("script")
 
-wanted_number = [21,22,23,24,25]
+wanted_number = [19, 20, 21, 22]
 data_string = ""
 
 for n in wanted_number:
@@ -69,5 +69,5 @@ for n in wanted_number:
 
 # x_axis_string = "{" + x_axis_string[:-2] + "]}"
 
-with open("res.json", "w") as f:
+with open("world.json", "w") as f:
     f.write(str("{" + data_string[1:] +"}"))
