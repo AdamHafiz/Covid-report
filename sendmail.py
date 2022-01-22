@@ -48,6 +48,6 @@ def send():
   ]
 
 
-  yag.send("alifzulkifeli@gmail.com", "Covid-19 Daily Report " + date.today(), contents, attachments=['recoveryrate.png', 'deathrate.png'])
-  yag.send("adamhafizswitch@gmail.com", "Covid-19 Daily Report " + date.today(), contents,attachments=['recoveryrate.png', 'deathrate.png'])
+  yag.send("alifzulkifeli@gmail.com", "Covid-19 Daily Report " + str(date.today()), contents, attachments=['recoveryrate.png', 'deathrate.png'])
+  yag.send("adamhafizswitch@gmail.com", "Covid-19 Daily Report " + str(date.today()), contents,attachments=['recoveryrate.png', 'deathrate.png'])
   # yag.send('izzat.ibtisyam@gmail.com', 'subject', contents)
