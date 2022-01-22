@@ -1,8 +1,15 @@
 import json
 import yagmail
+<<<<<<< HEAD
 
 import matplotlib.pyplot as plt
 import seaborn as sns
+=======
+import os
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+>>>>>>> 9819b601802974e4f06012a680338f70c5121ff6
 
 def generate_malaysia_report():
   with open('malaysia.json', "r") as file:
@@ -45,8 +52,31 @@ def generate_world_report():
   for n in range(7):
     print(data_deathrate["name1"], data_deathrate["x_axis"][-(n+1)], data_deathrate["data1"][-(n+1)])
 
+<<<<<<< HEAD
 generate_malaysia_report()
+=======
+
+  generate_graph(data_deathrate["x_axis"],data_deathrate["data2"],"recoveryrate" )
+  generate_graph(data_deathrate["x_axis"],data_deathrate["data1"],"deathrate" )
+
+
+def generate_graph(x,y,name):
+  sns.set_theme(style="darkgrid")
+  swarm_plot = sns.lineplot(x, y)
+  fig = swarm_plot.get_figure()
+  fig.savefig(name + ".png") 
+  plt.plot(x,y)
+  plt.clf()
+
+
+# generate_malaysia_report()
+>>>>>>> 9819b601802974e4f06012a680338f70c5121ff6
 generate_world_report()
+# generate_graph()
+
+def generate_result():
+  generate_world_report
+
 
 # yag = yagmail.SMTP('adamhafizswitch@gmail.com', 'iixnapwiuecrmyfy')
 # contents = ['This is the body, and here is just text http://somedomain/image.png',
