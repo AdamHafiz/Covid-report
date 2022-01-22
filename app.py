@@ -1,7 +1,8 @@
 import json
 import yagmail
 
-
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 def generate_malaysia_report():
   with open('malaysia.json', "r") as file:
@@ -43,7 +44,6 @@ def generate_world_report():
 
   for n in range(7):
     print(data_deathrate["name1"], data_deathrate["x_axis"][-(n+1)], data_deathrate["data1"][-(n+1)])
-
 
 generate_malaysia_report()
 generate_world_report()
