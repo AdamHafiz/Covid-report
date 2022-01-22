@@ -47,7 +47,7 @@ def generate_world_report():
     print(data_daily_deaths["name1"], data_daily_deaths["x_axis"][-(n+1)], data_daily_deaths["data1"][-(n+1)])
 
 
-generate_world_report()
+generate_malaysia_report()
 
 # yag = yagmail.SMTP('violettulip00@gmail.com', 'hlqlooasxiiswesp')
 # contents = ['This is the body, and here is just text http://somedomain/image.png',
