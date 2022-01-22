@@ -57,21 +57,21 @@ def cleaning(data):
     # return "{" +  x_axis + "," + name1 + "," + data1 +  "}"
     return "{" + x_axis + "," + name1 + "," + data1 + "}"
 
+def get_data():
+    URL = "https://www.worldometers.info/coronavirus/country/malaysia/"
+    page = requests.get(URL)
 
-URL = "https://www.worldometers.info/coronavirus/country/malaysia/"
-page = requests.get(URL)
+    soup = BeautifulSoup(page.content, "html.parser")
+    result = soup.find_all("script")
 
-soup = BeautifulSoup(page.content, "html.parser")
-result = soup.find_all("script")
+    wanted_number=[21,22,23,24,25]
+    data_string = ""
 
-wanted_number=[21,22,23,24,25]
-data_string = ""
+    for n in wanted_number:
+        cleaned_data =  '"item'+ str(n) + '":' + cleaning(str(result[n])) 
+        data_string = data_string + "," + cleaned_data
 
-for n in wanted_number:
-    cleaned_data =  '"item'+ str(n) + '":' + cleaning(str(result[n])) 
-    data_string = data_string + "," + cleaned_data
+    # x_axis_string = "{" + x_axis_string[:-2] + "]}"
 
-# x_axis_string = "{" + x_axis_string[:-2] + "]}"
-
-with open("malaysia.json", "w") as f:
-    f.write(str("{" + data_string[1:] +"}"))
+    with open("malaysia.json", "w") as f:
+        f.write(str("{" + data_string[1:] +"}"))

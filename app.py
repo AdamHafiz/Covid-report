@@ -103,13 +103,8 @@ def generate_graph(x, y, name):
     plt.clf()
 
 
-# generate_malaysia_report()
-# generate_world_report()
 
-with open("result.json", "w") as f:
-    f.write(str())
-
-def main():
+def generate_res():
     world = generate_world_report()
     malaysia = generate_malaysia_report()
     with open("result.json", "w") as f:
@@ -117,4 +112,4 @@ def main():
 
 
 
-main()
+
