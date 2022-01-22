@@ -3,7 +3,6 @@ import os
 import matplotlib.pyplot as plt
 from numpy import append
 import seaborn as sns
-import datetime
 
 
 def generate_malaysia_report():
@@ -17,19 +16,6 @@ def generate_malaysia_report():
     data_total_deaths = data["item24"]
     data_daily_deaths = data["item25"]
 
-    for n in range(7):
-        print(
-            data_daily_cases["name1"],
-            data_daily_cases["x_axis"][-(n + 1)],
-            data_daily_cases["data1"][-(n + 1)],
-        )
-
-    for n in range(7):
-        print(
-            data_daily_deaths["name1"],
-            data_daily_deaths["x_axis"][-(n + 1)],
-            data_daily_deaths["data1"][-(n + 1)],
-        )
       
     temp_date = []
     temp_data = []
@@ -82,8 +68,8 @@ def generate_world_report():
     data_total_cases = data["item21"]
     data_total_deaths = data["item22"]
 
-    # generate_graph(data_deathrate["x_axis"],data_deathrate["data2"],"recoveryrate" )
-    # generate_graph(data_deathrate["x_axis"],data_deathrate["data1"],"deathrate" )
+    generate_graph(data_deathrate["x_axis"],data_deathrate["data2"],"recoveryrate" )
+    generate_graph(data_deathrate["x_axis"],data_deathrate["data1"],"deathrate" )
 
     temp_date = []
     temp_data = []
@@ -126,8 +112,9 @@ with open("result.json", "w") as f:
 def main():
     world = generate_world_report()
     malaysia = generate_malaysia_report()
-    print(world)
-    print(malaysia)
+    with open("result.json", "w") as f:
+      f.write(str(world[:-1] + "," + malaysia[1:] ).replace("'", '"'))  
+
 
 
 main()
